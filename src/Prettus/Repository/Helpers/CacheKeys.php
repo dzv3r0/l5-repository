@@ -4,6 +4,7 @@ namespace Prettus\Repository\Helpers;
 
 /**
  * Class CacheKeys
+ *
  * @package Prettus\Repository\Helpers
  */
 class CacheKeys
@@ -104,10 +105,12 @@ class CacheKeys
     {
         $instance = new static;
 
-        return call_user_func_array([
+        return call_user_func_array(
+            [
             $instance,
             $method
-        ], $parameters);
+            ], $parameters
+        );
     }
 
     /**
@@ -120,9 +123,11 @@ class CacheKeys
     {
         $instance = new static;
 
-        return call_user_func_array([
+        return call_user_func_array(
+            [
             $instance,
             $method
-        ], $parameters);
+            ], $parameters
+        );
     }
 }

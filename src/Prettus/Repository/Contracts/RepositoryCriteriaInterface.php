@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Contracts;
 
 use Illuminate\Support\Collection;
@@ -6,6 +7,7 @@ use Illuminate\Support\Collection;
 
 /**
  * Interface RepositoryCriteriaInterface
+ *
  * @package Prettus\Repository\Contracts
  */
 interface RepositoryCriteriaInterface

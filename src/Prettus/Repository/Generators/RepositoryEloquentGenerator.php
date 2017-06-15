@@ -1,10 +1,12 @@
 <?php
+
 namespace Prettus\Repository\Generators;
 
 use Prettus\Repository\Generators\Migrations\SchemaParser;
 
 /**
  * Class RepositoryEloquentGenerator
+ *
  * @package Prettus\Repository\Generators
  */
 class RepositoryEloquentGenerator extends Generator
@@ -65,18 +67,22 @@ class RepositoryEloquentGenerator extends Generator
     public function getReplacements()
     {
         $repository = parent::getRootNamespace() . parent::getConfigGeneratorClassPath('interfaces') . '\\' . $this->name . 'Repository;';
-        $repository = str_replace([
+        $repository = str_replace(
+            [
             "\\",
             '/'
-        ], '\\', $repository);
+            ], '\\', $repository
+        );
 
-        return array_merge(parent::getReplacements(), [
+        return array_merge(
+            parent::getReplacements(), [
             'fillable'      => $this->getFillable(),
             'use_validator' => $this->getValidatorUse(),
             'validator'     => $this->getValidatorMethod(),
             'repository'    => $repository,
             'model'         => isset($this->options['model']) ? $this->options['model'] : ''
-        ]);
+            ]
+        );
     }
 
     /**
@@ -118,18 +124,22 @@ class RepositoryEloquentGenerator extends Generator
 
     public function getValidator()
     {
-        $validatorGenerator = new ValidatorGenerator([
+        $validatorGenerator = new ValidatorGenerator(
+            [
             'name'  => $this->name,
             'rules' => $this->rules,
             'force' => $this->force,
-        ]);
+            ]
+        );
 
         $validator = $validatorGenerator->getRootNamespace() . '\\' . $validatorGenerator->getName();
 
-        return str_replace([
+        return str_replace(
+            [
             "\\",
             '/'
-        ], '\\', $validator) . 'Validator';
+            ], '\\', $validator
+        ) . 'Validator';
 
     }
 

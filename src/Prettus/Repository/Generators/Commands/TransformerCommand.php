@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Generators\Commands;
 
 use Illuminate\Console\Command;
@@ -40,10 +41,12 @@ class TransformerCommand extends Command
     public function fire()
     {
         try {
-            (new TransformerGenerator([
+            (new TransformerGenerator(
+                [
                 'name' => $this->argument('name'),
                 'force' => $this->option('force'),
-            ]))->run();
+                ]
+            ))->run();
             $this->info("Transformer created successfully.");
         } catch (FileAlreadyExistsException $e) {
             $this->error($this->type . ' already exists!');

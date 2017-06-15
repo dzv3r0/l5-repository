@@ -38,10 +38,12 @@ class CriteriaCommand extends Command
     public function fire()
     {
         try {
-            (new CriteriaGenerator([
+            (new CriteriaGenerator(
+                [
                 'name' => $this->argument('name'),
                 'force' => $this->option('force'),
-            ]))->run();
+                ]
+            ))->run();
 
             $this->info("Criteria created successfully.");
         } catch (FileAlreadyExistsException $ex) {

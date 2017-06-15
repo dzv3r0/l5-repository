@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Criteria;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -9,6 +10,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Class RequestCriteria
+ *
  * @package Prettus\Repository\Criteria
  */
 class RequestCriteria implements CriteriaInterface
@@ -27,7 +29,7 @@ class RequestCriteria implements CriteriaInterface
     /**
      * Apply criteria in query repository
      *
-     * @param         Builder|Model     $model
+     * @param Builder|Model       $model
      * @param RepositoryInterface $repository
      *
      * @return mixed
@@ -53,59 +55,67 @@ class RequestCriteria implements CriteriaInterface
             $search = $this->parserSearchValue($search);
             $modelForceAndWhere = false;
 
-            $model = $model->where(function ($query) use ($fields, $search, $searchData, $isFirstField, $modelForceAndWhere) {
-                /** @var Builder $query */
+            $model = $model->where(
+                function ($query) use ($fields, $search, $searchData, $isFirstField, $modelForceAndWhere) {
+                    /**
+                * @var Builder $query 
+                */
 
-                foreach ($fields as $field => $condition) {
+                    foreach ($fields as $field => $condition) {
 
-                    if (is_numeric($field)) {
-                        $field = $condition;
-                        $condition = "=";
-                    }
-
-                    $value = null;
-
-                    $condition = trim(strtolower($condition));
-
-                    if (isset($searchData[$field])) {
-                        $value = ($condition == "like" || $condition == "ilike") ? "%{$searchData[$field]}%" : $searchData[$field];
-                    } else {
-                        if (!is_null($search)) {
-                            $value = ($condition == "like" || $condition == "ilike") ? "%{$search}%" : $search;
+                        if (is_numeric($field)) {
+                            $field = $condition;
+                            $condition = "=";
                         }
-                    }
 
-                    $relation = null;
-                    if(stripos($field, '.')) {
-                        $explode = explode('.', $field);
-                        $field = array_pop($explode);
-                        $relation = implode('.', $explode);
-                    }
-                    $modelTableName = $query->getModel()->getTable();
-                    if ( $isFirstField || $modelForceAndWhere ) {
-                        if (!is_null($value)) {
-                            if(!is_null($relation)) {
-                                $query->whereHas($relation, function($query) use($field,$condition,$value) {
-                                    $query->where($field,$condition,$value);
-                                });
-                            } else {
-                                $query->where($modelTableName.'.'.$field,$condition,$value);
+                        $value = null;
+
+                        $condition = trim(strtolower($condition));
+
+                        if (isset($searchData[$field])) {
+                            $value = ($condition == "like" || $condition == "ilike") ? "%{$searchData[$field]}%" : $searchData[$field];
+                        } else {
+                            if (!is_null($search)) {
+                                $value = ($condition == "like" || $condition == "ilike") ? "%{$search}%" : $search;
                             }
-                            $isFirstField = false;
                         }
-                    } else {
-                        if (!is_null($value)) {
-                            if(!is_null($relation)) {
-                                $query->orWhereHas($relation, function($query) use($field,$condition,$value) {
-                                    $query->where($field,$condition,$value);
-                                });
-                            } else {
-                                $query->orWhere($modelTableName.'.'.$field, $condition, $value);
+
+                        $relation = null;
+                        if(stripos($field, '.')) {
+                            $explode = explode('.', $field);
+                            $field = array_pop($explode);
+                            $relation = implode('.', $explode);
+                        }
+                        $modelTableName = $query->getModel()->getTable();
+                        if ($isFirstField || $modelForceAndWhere ) {
+                            if (!is_null($value)) {
+                                if(!is_null($relation)) {
+                                    $query->whereHas(
+                                        $relation, function ($query) use ($field,$condition,$value) {
+                                            $query->where($field, $condition, $value);
+                                        }
+                                    );
+                                } else {
+                                    $query->where($modelTableName.'.'.$field, $condition, $value);
+                                }
+                                $isFirstField = false;
+                            }
+                        } else {
+                            if (!is_null($value)) {
+                                if(!is_null($relation)) {
+                                    $query->orWhereHas(
+                                        $relation, function ($query) use ($field,$condition,$value) {
+                                            $query->where($field, $condition, $value);
+                                        }
+                                    );
+                                } else {
+                                    $query->orWhere($modelTableName.'.'.$field, $condition, $value);
+                                }
                             }
                         }
                     }
                 }
-            });
+            );
         }
 
         if (isset($orderBy) && !empty($orderBy)) {
@@ -215,10 +225,12 @@ class RequestCriteria implements CriteriaInterface
     protected function parserFieldsSearch(array $fields = [], array $searchFields = null)
     {
         if (!is_null($searchFields) && count($searchFields)) {
-            $acceptedConditions = config('repository.criteria.acceptedConditions', [
+            $acceptedConditions = config(
+                'repository.criteria.acceptedConditions', [
                 '=',
                 'like'
-            ]);
+                ]
+            );
             $originalFields = $fields;
             $fields = [];
 

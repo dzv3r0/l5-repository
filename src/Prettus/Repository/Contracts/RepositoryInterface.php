@@ -1,8 +1,10 @@
 <?php
+
 namespace Prettus\Repository\Contracts;
 
 /**
  * Interface RepositoryInterface
+ *
  * @package Prettus\Repository\Contracts
  */
 interface RepositoryInterface
@@ -11,7 +13,7 @@ interface RepositoryInterface
     /**
      * Retrieve data array for populate field select
      *
-     * @param string $column
+     * @param string      $column
      * @param string|null $key
      *
      * @return \Illuminate\Support\Collection|array
@@ -21,7 +23,8 @@ interface RepositoryInterface
     /**
      * Retrieve data array for populate field select
      * Compatible with Laravel 5.3
-     * @param string $column
+     *
+     * @param string      $column
      * @param string|null $key
      *
      * @return \Illuminate\Support\Collection|array
@@ -31,10 +34,10 @@ interface RepositoryInterface
     /**
      * Sync relations
      *
-     * @param $id
-     * @param $relation
-     * @param $attributes
-     * @param bool $detaching
+     * @param  $id
+     * @param  $relation
+     * @param  $attributes
+     * @param  bool       $detaching
      * @return mixed
      */
     public function sync($id, $relation, $attributes, $detaching = true);
@@ -42,12 +45,12 @@ interface RepositoryInterface
     /**
      * SyncWithoutDetaching
      *
-     * @param $id
-     * @param $relation
-     * @param $attributes
+     * @param  $id
+     * @param  $relation
+     * @param  $attributes
      * @return mixed
      */
-     public function syncWithoutDetaching($id, $relation, $attributes);
+    public function syncWithoutDetaching($id, $relation, $attributes);
 
     /**
      * Retrieve all data of repository
@@ -61,7 +64,7 @@ interface RepositoryInterface
     /**
      * Retrieve all data of repository, paginated
      *
-     * @param null $limit
+     * @param null  $limit
      * @param array $columns
      *
      * @return mixed
@@ -71,7 +74,7 @@ interface RepositoryInterface
     /**
      * Retrieve all data of repository, simple paginated
      *
-     * @param null $limit
+     * @param null  $limit
      * @param array $columns
      *
      * @return mixed
@@ -81,7 +84,7 @@ interface RepositoryInterface
     /**
      * Find data by id
      *
-     * @param       $id
+     * @param $id
      * @param array $columns
      *
      * @return mixed
@@ -91,8 +94,8 @@ interface RepositoryInterface
     /**
      * Find data by field and value
      *
-     * @param       $field
-     * @param       $value
+     * @param $field
+     * @param $value
      * @param array $columns
      *
      * @return mixed
@@ -112,7 +115,7 @@ interface RepositoryInterface
     /**
      * Find data by multiple values in one field
      *
-     * @param       $field
+     * @param $field
      * @param array $values
      * @param array $columns
      *
@@ -123,7 +126,7 @@ interface RepositoryInterface
     /**
      * Find data by excluding multiple values in one field
      *
-     * @param       $field
+     * @param $field
      * @param array $values
      * @param array $columns
      *
@@ -144,7 +147,7 @@ interface RepositoryInterface
      * Update a entity in repository by id
      *
      * @param array $attributes
-     * @param       $id
+     * @param $id
      *
      * @return mixed
      */
@@ -193,7 +196,7 @@ interface RepositoryInterface
     /**
      * Load relation with closure
      *
-     * @param string $relation
+     * @param string  $relation
      * @param closure $closure
      *
      * @return $this

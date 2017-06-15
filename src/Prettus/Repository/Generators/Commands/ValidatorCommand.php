@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Generators\Commands;
 
 use Illuminate\Console\Command;
@@ -41,11 +42,13 @@ class ValidatorCommand extends Command
     public function fire()
     {
         try {
-            (new ValidatorGenerator([
+            (new ValidatorGenerator(
+                [
                 'name' => $this->argument('name'),
                 'rules' => $this->option('rules'),
                 'force' => $this->option('force'),
-            ]))->run();
+                ]
+            ))->run();
             $this->info("Validator created successfully.");
         } catch (FileAlreadyExistsException $e) {
             $this->error($this->type . ' already exists!');

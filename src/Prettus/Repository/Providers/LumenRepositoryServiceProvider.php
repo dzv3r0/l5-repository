@@ -1,10 +1,12 @@
 <?php
+
 namespace Prettus\Repository\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class LumenRepositoryServiceProvider
+ *
  * @package Prettus\Repository\Providers
  */
 class LumenRepositoryServiceProvider extends ServiceProvider

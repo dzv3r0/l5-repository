@@ -4,6 +4,7 @@ namespace Prettus\Repository\Generators;
 
 /**
  * Class Stub
+ *
  * @package Prettus\Repository\Generators
  */
 class Stub
@@ -42,8 +43,8 @@ class Stub
     /**
      * Create new self instance.
      *
-     * @param  string $path
-     * @param  array  $replaces
+     * @param string $path
+     * @param array  $replaces
      *
      * @return self
      */
@@ -55,7 +56,7 @@ class Stub
     /**
      * Set base path.
      *
-     * @param  string $path
+     * @param string $path
      *
      * @return void
      */
@@ -67,7 +68,7 @@ class Stub
     /**
      * Set replacements array.
      *
-     * @param  array $replaces
+     * @param array $replaces
      *
      * @return $this
      */

@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Eloquent;
 
 use Closure;
@@ -23,6 +24,7 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class BaseRepository
+ *
  * @package Prettus\Repository\Eloquent
  */
 abstract class BaseRepository implements RepositoryInterface, RepositoryCriteriaInterface
@@ -255,7 +257,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Retrieve data array for populate field select
      *
-     * @param string $column
+     * @param string      $column
      * @param string|null $key
      *
      * @return \Illuminate\Support\Collection|array
@@ -270,7 +272,8 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Retrieve data array for populate field select
      * Compatible with Laravel 5.3
-     * @param string $column
+     *
+     * @param string      $column
      * @param string|null $key
      *
      * @return \Illuminate\Support\Collection|array
@@ -285,10 +288,10 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Sync relations
      *
-     * @param $id
-     * @param $relation
-     * @param $attributes
-     * @param bool $detaching
+     * @param  $id
+     * @param  $relation
+     * @param  $attributes
+     * @param  bool       $detaching
      * @return mixed
      */
     public function sync($id, $relation, $attributes, $detaching = true)
@@ -299,9 +302,9 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * SyncWithoutDetaching
      *
-     * @param $id
-     * @param $relation
-     * @param $attributes
+     * @param  $id
+     * @param  $relation
+     * @param  $attributes
      * @return mixed
      */
     public function syncWithoutDetaching($id, $relation, $attributes)
@@ -402,8 +405,8 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Retrieve all data of repository, paginated
      *
-     * @param null $limit
-     * @param array $columns
+     * @param null   $limit
+     * @param array  $columns
      * @param string $method
      *
      * @return mixed
@@ -423,7 +426,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Retrieve all data of repository, simple paginated
      *
-     * @param null $limit
+     * @param null  $limit
      * @param array $columns
      *
      * @return mixed
@@ -436,7 +439,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Find data by id
      *
-     * @param       $id
+     * @param $id
      * @param array $columns
      *
      * @return mixed
@@ -454,8 +457,8 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Find data by field and value
      *
-     * @param       $field
-     * @param       $value
+     * @param $field
+     * @param $value
      * @param array $columns
      *
      * @return mixed
@@ -494,7 +497,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Find data by multiple values in one field
      *
-     * @param       $field
+     * @param $field
      * @param array $values
      * @param array $columns
      *
@@ -513,7 +516,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Find data by excluding multiple values in one field
      *
-     * @param       $field
+     * @param $field
      * @param array $values
      * @param array $columns
      *
@@ -564,7 +567,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
      * @throws ValidatorException
      *
      * @param array $attributes
-     * @param       $id
+     * @param $id
      *
      * @return mixed
      */
@@ -725,7 +728,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Load relation with closure
      *
-     * @param string $relation
+     * @param string  $relation
      * @param closure $closure
      *
      * @return $this
@@ -802,17 +805,19 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
      */
     public function popCriteria($criteria)
     {
-        $this->criteria = $this->criteria->reject(function ($item) use ($criteria) {
-            if (is_object($item) && is_string($criteria)) {
-                return get_class($item) === $criteria;
-            }
+        $this->criteria = $this->criteria->reject(
+            function ($item) use ($criteria) {
+                if (is_object($item) && is_string($criteria)) {
+                    return get_class($item) === $criteria;
+                }
 
-            if (is_string($item) && is_object($criteria)) {
-                return $item === get_class($criteria);
-            }
+                if (is_string($item) && is_object($criteria)) {
+                    return $item === get_class($criteria);
+                }
 
-            return get_class($item) === get_class($criteria);
-        });
+                return get_class($item) === get_class($criteria);
+            }
+        );
 
         return $this;
     }
@@ -924,7 +929,7 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
     /**
      * Applies the given where conditions to the model.
      *
-     * @param array $where
+     * @param  array $where
      * @return void
      */
     protected function applyConditions(array $where)
@@ -965,13 +970,15 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
         if ($this->presenter instanceof PresenterInterface) {
 
             if ($result instanceof Collection || $result instanceof LengthAwarePaginator) {
-                $result->each(function ($model) {
-                    if ($model instanceof Presentable) {
-                        $model->setPresenter($this->presenter);
-                    }
+                $result->each(
+                    function ($model) {
+                        if ($model instanceof Presentable) {
+                            $model->setPresenter($this->presenter);
+                        }
 
-                    return $model;
-                });
+                        return $model;
+                    }
+                );
             } elseif ($result instanceof Presentable) {
                 $result = $result->setPresenter($this->presenter);
             }

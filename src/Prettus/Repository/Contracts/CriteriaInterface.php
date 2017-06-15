@@ -1,8 +1,10 @@
 <?php
+
 namespace Prettus\Repository\Contracts;
 
 /**
  * Interface CriteriaInterface
+ *
  * @package Prettus\Repository\Contracts
  */
 interface CriteriaInterface
@@ -10,7 +12,7 @@ interface CriteriaInterface
     /**
      * Apply criteria in query repository
      *
-     * @param                     $model
+     * @param $model
      * @param RepositoryInterface $repository
      *
      * @return mixed

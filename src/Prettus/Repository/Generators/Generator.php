@@ -77,7 +77,7 @@ abstract class Generator
     {
         $path = config('repository.generator.stubsOverridePath', __DIR__);
 
-        if(!file_exists($path . '/Stubs/' . $this->stub . '.stub')){
+        if(!file_exists($path . '/Stubs/' . $this->stub . '.stub')) {
             $path = __DIR__;
         }
 
@@ -141,7 +141,7 @@ abstract class Generator
     }
     
     
-   /**
+    /**
      * Get application namespace
      * 
      * @return string
@@ -195,35 +195,35 @@ abstract class Generator
     public function getConfigGeneratorClassPath($class, $directoryPath = false)
     {
         switch ($class) {
-            case ('models' === $class):
-                $path = config('repository.generator.paths.models', 'Entities');
-                break;
-            case ('repositories' === $class):
-                $path = config('repository.generator.paths.repositories', 'Repositories');
-                break;
-            case ('interfaces' === $class):
-                $path = config('repository.generator.paths.interfaces', 'Repositories');
-                break;
-            case ('presenters' === $class):
-                $path = config('repository.generator.paths.presenters', 'Presenters');
-                break;
-            case ('transformers' === $class):
-                $path = config('repository.generator.paths.transformers', 'Transformers');
-                break;
-            case ('validators' === $class):
-                $path = config('repository.generator.paths.validators', 'Validators');
-                break;
-            case ('controllers' === $class):
-                $path = config('repository.generator.paths.controllers', 'Http\Controllers');
-                break;
-            case ('provider' === $class):
-                $path = config('repository.generator.paths.provider', 'RepositoryServiceProvider');
-                break;
-            case ('criteria' === $class):
-                $path = config('repository.generator.paths.criteria', 'Criteria');
-                break;
-            default:
-                $path = '';
+        case ('models' === $class):
+            $path = config('repository.generator.paths.models', 'Entities');
+            break;
+        case ('repositories' === $class):
+            $path = config('repository.generator.paths.repositories', 'Repositories');
+            break;
+        case ('interfaces' === $class):
+            $path = config('repository.generator.paths.interfaces', 'Repositories');
+            break;
+        case ('presenters' === $class):
+            $path = config('repository.generator.paths.presenters', 'Presenters');
+            break;
+        case ('transformers' === $class):
+            $path = config('repository.generator.paths.transformers', 'Transformers');
+            break;
+        case ('validators' === $class):
+            $path = config('repository.generator.paths.validators', 'Validators');
+            break;
+        case ('controllers' === $class):
+            $path = config('repository.generator.paths.controllers', 'Http\Controllers');
+            break;
+        case ('provider' === $class):
+            $path = config('repository.generator.paths.provider', 'RepositoryServiceProvider');
+            break;
+        case ('criteria' === $class):
+            $path = config('repository.generator.paths.criteria', 'Criteria');
+            break;
+        default:
+            $path = '';
         }
 
         if ($directoryPath) {
@@ -303,7 +303,7 @@ abstract class Generator
     /**
      * Determinte whether the given key exist in options array.
      *
-     * @param  string $key
+     * @param string $key
      *
      * @return boolean
      */
@@ -316,8 +316,8 @@ abstract class Generator
     /**
      * Get value from options by given key.
      *
-     * @param  string      $key
-     * @param  string|null $default
+     * @param string      $key
+     * @param string|null $default
      *
      * @return string
      */
@@ -334,8 +334,8 @@ abstract class Generator
     /**
      * Helper method for "getOption".
      *
-     * @param  string      $key
-     * @param  string|null $default
+     * @param string      $key
+     * @param string|null $default
      *
      * @return string
      */
@@ -348,7 +348,7 @@ abstract class Generator
     /**
      * Handle call to __get method.
      *
-     * @param  string $key
+     * @param string $key
      *
      * @return string|mixed
      */

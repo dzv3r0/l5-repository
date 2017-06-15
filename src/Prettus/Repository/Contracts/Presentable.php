@@ -1,8 +1,10 @@
 <?php
+
 namespace Prettus\Repository\Contracts;
 
 /**
  * Interface Presentable
+ *
  * @package Prettus\Repository\Contracts
  */
 interface Presentable

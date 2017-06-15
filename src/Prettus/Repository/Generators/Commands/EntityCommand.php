@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Generators\Commands;
 
 use Illuminate\Console\Command;
@@ -38,10 +39,12 @@ class EntityCommand extends Command
     {
 
         if ($this->confirm('Would you like to create a Presenter? [y|N]')) {
-            $this->call('make:presenter', [
+            $this->call(
+                'make:presenter', [
                 'name'    => $this->argument('name'),
                 '--force' => $this->option('force'),
-            ]);
+                ]
+            );
         }
 
         $validator = $this->option('validator');
@@ -50,34 +53,42 @@ class EntityCommand extends Command
         }
 
         if ($validator == 'yes') {
-            $this->call('make:validator', [
+            $this->call(
+                'make:validator', [
                 'name'    => $this->argument('name'),
                 '--rules' => $this->option('rules'),
                 '--force' => $this->option('force'),
-            ]);
+                ]
+            );
         }
 
         if ($this->confirm('Would you like to create a Controller? [y|N]')) {
 
             // Generate a controller resource
-            $this->call('make:resource', [
+            $this->call(
+                'make:resource', [
                 'name'    => $this->argument('name'),
                 '--force' => $this->option('force')
-            ]);
+                ]
+            );
         }
 
-        $this->call('make:repository', [
+        $this->call(
+            'make:repository', [
             'name'        => $this->argument('name'),
             '--fillable'  => $this->option('fillable'),
             '--rules'     => $this->option('rules'),
             '--validator' => $validator,
             '--force'     => $this->option('force')
-        ]);
+            ]
+        );
 
-        $this->call('make:bindings', [
+        $this->call(
+            'make:bindings', [
             'name'    => $this->argument('name'),
             '--force' => $this->option('force')
-        ]);
+            ]
+        );
     }
 
 

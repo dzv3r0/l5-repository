@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Presenter;
 
 use Exception;
@@ -15,6 +16,7 @@ use Prettus\Repository\Contracts\PresenterInterface;
 
 /**
  * Class FractalPresenter
+ *
  * @package Prettus\Repository\Presenter
  */
 abstract class FractalPresenter implements PresenterInterface

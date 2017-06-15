@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Generators\Commands;
 
 use Illuminate\Console\Command;
@@ -42,18 +43,22 @@ class PresenterCommand extends Command
     {
 
         try {
-            (new PresenterGenerator([
+            (new PresenterGenerator(
+                [
                 'name'  => $this->argument('name'),
                 'force' => $this->option('force'),
-            ]))->run();
+                ]
+            ))->run();
             $this->info("Presenter created successfully.");
 
             if (!\File::exists(app_path() . '/Transformers/' . $this->argument('name') . 'Transformer.php')) {
                 if ($this->confirm('Would you like to create a Transformer? [y|N]')) {
-                    (new TransformerGenerator([
+                    (new TransformerGenerator(
+                        [
                         'name'  => $this->argument('name'),
                         'force' => $this->option('force'),
-                    ]))->run();
+                        ]
+                    ))->run();
                     $this->info("Transformer created successfully.");
                 }
             }

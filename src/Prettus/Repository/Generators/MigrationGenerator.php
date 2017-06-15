@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**
  * Class MigrationGenerator
+ *
  * @package Prettus\Repository\Generators
  */
 class MigrationGenerator extends Generator
@@ -120,38 +121,38 @@ class MigrationGenerator extends Generator
 
         $action = $parser->getAction();
         switch ($action) {
-            case 'add':
-            case 'append':
-            case 'update':
-            case 'insert':
-                $file = 'change';
-                $replacements = [
-                    'class'       => $this->getClass(),
-                    'table'       => $parser->getTable(),
-                    'fields_up'   => $this->getSchemaParser()->up(),
-                    'fields_down' => $this->getSchemaParser()->down(),
-                ];
-                break;
+        case 'add':
+        case 'append':
+        case 'update':
+        case 'insert':
+            $file = 'change';
+            $replacements = [
+            'class'       => $this->getClass(),
+            'table'       => $parser->getTable(),
+            'fields_up'   => $this->getSchemaParser()->up(),
+            'fields_down' => $this->getSchemaParser()->down(),
+            ];
+            break;
 
-            case 'delete':
-            case 'remove':
-            case 'alter':
-                $file = 'change';
-                $replacements = [
-                    'class'       => $this->getClass(),
-                    'table'       => $parser->getTable(),
-                    'fields_down' => $this->getSchemaParser()->up(),
-                    'fields_up'   => $this->getSchemaParser()->down(),
-                ];
-                break;
-            default:
-                $file = 'create';
-                $replacements = [
-                    'class'  => $this->getClass(),
-                    'table'  => $parser->getTable(),
-                    'fields' => $this->getSchemaParser()->up(),
-                ];
-                break;
+        case 'delete':
+        case 'remove':
+        case 'alter':
+            $file = 'change';
+            $replacements = [
+            'class'       => $this->getClass(),
+            'table'       => $parser->getTable(),
+            'fields_down' => $this->getSchemaParser()->up(),
+            'fields_up'   => $this->getSchemaParser()->down(),
+            ];
+            break;
+        default:
+            $file = 'create';
+            $replacements = [
+            'class'  => $this->getClass(),
+            'table'  => $parser->getTable(),
+            'fields' => $this->getSchemaParser()->up(),
+            ];
+            break;
         }
         $path = config('repository.generator.stubsOverridePath', __DIR__);
 

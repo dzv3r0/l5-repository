@@ -1,10 +1,12 @@
 <?php
+
 namespace Prettus\Repository\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class RepositoryServiceProvider
+ *
  * @package Prettus\Repository\Providers
  */
 class RepositoryServiceProvider extends ServiceProvider
@@ -24,9 +26,11 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
+        $this->publishes(
+            [
             __DIR__ . '/../../../resources/config/repository.php' => config_path('repository.php')
-        ]);
+            ]
+        );
 
         $this->mergeConfigFrom(__DIR__ . '/../../../resources/config/repository.php', 'repository');
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Generators\Commands;
 
 use Illuminate\Console\Command;
@@ -50,43 +51,57 @@ class RepositoryCommand extends Command
     {
         $this->generators = new Collection();
 
-        $this->generators->push(new MigrationGenerator([
-            'name'   => 'create_' . snake_case(str_plural($this->argument('name'))) . '_table',
-            'fields' => $this->option('fillable'),
-            'force'  => $this->option('force'),
-        ]));
+        $this->generators->push(
+            new MigrationGenerator(
+                [
+                'name'   => 'create_' . snake_case(str_plural($this->argument('name'))) . '_table',
+                'fields' => $this->option('fillable'),
+                'force'  => $this->option('force'),
+                ]
+            )
+        );
 
-        $modelGenerator = new ModelGenerator([
+        $modelGenerator = new ModelGenerator(
+            [
             'name'     => $this->argument('name'),
             'fillable' => $this->option('fillable'),
             'force'    => $this->option('force')
-        ]);
+            ]
+        );
 
         $this->generators->push($modelGenerator);
 
-        $this->generators->push(new RepositoryInterfaceGenerator([
-            'name'  => $this->argument('name'),
-            'force' => $this->option('force'),
-        ]));
+        $this->generators->push(
+            new RepositoryInterfaceGenerator(
+                [
+                'name'  => $this->argument('name'),
+                'force' => $this->option('force'),
+                ]
+            )
+        );
 
         foreach ($this->generators as $generator) {
             $generator->run();
         }
 
         $model = $modelGenerator->getRootNamespace() . '\\' . $modelGenerator->getName();
-        $model = str_replace([
+        $model = str_replace(
+            [
             "\\",
             '/'
-        ], '\\', $model);
+            ], '\\', $model
+        );
 
         try {
-            (new RepositoryEloquentGenerator([
+            (new RepositoryEloquentGenerator(
+                [
                 'name'      => $this->argument('name'),
                 'rules'     => $this->option('rules'),
                 'validator' => $this->option('validator'),
                 'force'     => $this->option('force'),
                 'model'     => $model
-            ]))->run();
+                ]
+            ))->run();
             $this->info("Repository created successfully.");
         } catch (FileAlreadyExistsException $e) {
             $this->error($this->type . ' already exists!');

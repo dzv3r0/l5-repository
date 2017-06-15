@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Generators;
 
 use Prettus\Repository\Generators\Migrations\RulesParser;
@@ -6,6 +7,7 @@ use Prettus\Repository\Generators\Migrations\SchemaParser;
 
 /**
  * Class ValidatorGenerator
+ *
  * @package Prettus\Repository\Generators
  */
 class ValidatorGenerator extends Generator
@@ -66,9 +68,11 @@ class ValidatorGenerator extends Generator
     public function getReplacements()
     {
 
-        return array_merge(parent::getReplacements(), [
+        return array_merge(
+            parent::getReplacements(), [
             'rules' => $this->getRules(),
-        ]);
+            ]
+        );
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Generators\Commands;
 
 use File;
@@ -42,21 +43,29 @@ class BindingsCommand extends Command
     public function fire()
     {
         try {
-            $bindingGenerator = new BindingsGenerator([
+            $bindingGenerator = new BindingsGenerator(
+                [
                 'name' => $this->argument('name'),
                 'force' => $this->option('force'),
-            ]);
+                ]
+            );
             // generate repository service provider
             if (!file_exists($bindingGenerator->getPath())) {
-                $this->call('make:provider', [
+                $this->call(
+                    'make:provider', [
                     'name' => $bindingGenerator->getConfigGeneratorClassPath($bindingGenerator->getPathConfigNode()),
-                ]);
+                    ]
+                );
                 // placeholder to mark the place in file where to prepend repository bindings
                 $provider = File::get($bindingGenerator->getPath());
-                File::put($bindingGenerator->getPath(), vsprintf(str_replace('//', '%s', $provider), [
-                    '//',
-                    $bindingGenerator->bindPlaceholder
-                ]));
+                File::put(
+                    $bindingGenerator->getPath(), vsprintf(
+                        str_replace('//', '%s', $provider), [
+                        '//',
+                        $bindingGenerator->bindPlaceholder
+                        ]
+                    )
+                );
             }
             $bindingGenerator->run();
             $this->info($this->type . ' created successfully.');

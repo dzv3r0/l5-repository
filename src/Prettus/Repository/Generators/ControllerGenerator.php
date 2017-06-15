@@ -1,8 +1,10 @@
 <?php
+
 namespace Prettus\Repository\Generators;
 
 /**
  * Class ControllerGenerator
+ *
  * @package Prettus\Repository\Generators
  */
 class ControllerGenerator extends Generator
@@ -85,14 +87,16 @@ class ControllerGenerator extends Generator
     public function getReplacements()
     {
 
-        return array_merge(parent::getReplacements(), [
+        return array_merge(
+            parent::getReplacements(), [
             'controller' => $this->getControllerName(),
             'plural'     => $this->getPluralName(),
             'singular'   => $this->getSingularName(),
             'validator'  => $this->getValidator(),
             'repository' => $this->getRepository(),
             'appname'    => $this->getAppNamespace(),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -112,16 +116,20 @@ class ControllerGenerator extends Generator
      */
     public function getValidator()
     {
-        $validatorGenerator = new ValidatorGenerator([
+        $validatorGenerator = new ValidatorGenerator(
+            [
             'name' => $this->name,
-        ]);
+            ]
+        );
 
         $validator = $validatorGenerator->getRootNamespace() . '\\' . $validatorGenerator->getName();
 
-        return 'use ' . str_replace([
+        return 'use ' . str_replace(
+            [
             "\\",
             '/'
-        ], '\\', $validator) . 'Validator;';
+            ], '\\', $validator
+        ) . 'Validator;';
     }
 
 
@@ -132,15 +140,19 @@ class ControllerGenerator extends Generator
      */
     public function getRepository()
     {
-        $repositoryGenerator = new RepositoryInterfaceGenerator([
+        $repositoryGenerator = new RepositoryInterfaceGenerator(
+            [
             'name' => $this->name,
-        ]);
+            ]
+        );
 
         $repository = $repositoryGenerator->getRootNamespace() . '\\' . $repositoryGenerator->getName();
 
-        return 'use ' . str_replace([
+        return 'use ' . str_replace(
+            [
             "\\",
             '/'
-        ], '\\', $repository) . 'Repository;';
+            ], '\\', $repository
+        ) . 'Repository;';
     }
 }

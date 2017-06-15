@@ -1,4 +1,5 @@
 <?php
+
 namespace Prettus\Repository\Generators\Commands;
 
 use Illuminate\Console\Command;
@@ -42,18 +43,24 @@ class ControllerCommand extends Command
     {
         try {
             // Generate create request for controller
-            $this->call('make:request', [
+            $this->call(
+                'make:request', [
                 'name' => $this->argument('name') . 'CreateRequest'
-            ]);
+                ]
+            );
             // Generate update request for controller
-            $this->call('make:request', [
+            $this->call(
+                'make:request', [
                 'name' => $this->argument('name') . 'UpdateRequest'
-            ]);
+                ]
+            );
 
-            (new ControllerGenerator([
+            (new ControllerGenerator(
+                [
                 'name' => $this->argument('name'),
                 'force' => $this->option('force'),
-            ]))->run();
+                ]
+            ))->run();
             $this->info($this->type . ' created successfully.');
         } catch (FileAlreadyExistsException $e) {
             $this->error($this->type . ' already exists!');

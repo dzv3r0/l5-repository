@@ -1,10 +1,12 @@
 <?php
+
 namespace Prettus\Repository\Generators\Migrations;
 
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * Class RulesParser
+ *
  * @package Prettus\Repository\Generators\Migrations
  */
 class RulesParser implements Arrayable
@@ -41,7 +43,7 @@ class RulesParser implements Arrayable
     /**
      * Parse a string to array of formatted rules.
      *
-     * @param  string $rules
+     * @param string $rules
      *
      * @return array
      */
@@ -75,23 +77,25 @@ class RulesParser implements Arrayable
     /**
      * Get column name from rules.
      *
-     * @param  string $rules
+     * @param string $rules
      *
      * @return string
      */
     public function getColumn($rules)
     {
-        return array_first(explode('=>', $rules), function ($key, $value) {
-            return $value;
-        });
+        return array_first(
+            explode('=>', $rules), function ($key, $value) {
+                return $value;
+            }
+        );
     }
 
 
     /**
      * Get column attributes.
      *
-     * @param  string $column
-     * @param  string $rules
+     * @param string $column
+     * @param string $rules
      *
      * @return array
      */
